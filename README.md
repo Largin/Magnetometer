@@ -2,11 +2,11 @@
 
 Script to convert data from magnetometer.
 
-Data is split into chunks, each chunk consists same nummber of points.
+Data is split into chunks, each chunk consists same number of points.
 Each point has timestamp and value.
 
-Each chunk is is considered in itself, it's timestamps normalized to first timestamp.
-Values are considered normalized to average of first elements of the chunk, and not.
+Each chunk is analyzed by itself, it's timestamps normalized to first timestamp.
+Values are normalized to average of first elements of the chunk. Values are anylyzed both normalized and before normalization.
 
 Chunks can be filtered by number of chunk, average of first elements related to average of last elements, and by comparing values of agregate functions to set up limits
 All data (normalized and not) are exported as table having chunks as columns and timestamps as rows, with values of functions appended.
