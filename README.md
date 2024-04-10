@@ -12,21 +12,25 @@ Chunks can be filtered by number of chunk, average of first elements related to 
 All data (normalized and not) are exported as table having chunks as columns and timestamps as rows, with values of functions appended.
 Script generates plots with chunks data, averages, and functions.
 
-Input data:
+## Input data:
 CSV files containg:
+	
 	header row:
 		chunk;timestamp;value
 	Rows with data:
 		0;4853816079647;2519.88
 
-Output data:
+## Output data:
 CSV files containg:
+
+	Header Row
 	timestamps\chunk,0,1,...,average
 	Rows with data
 	Rows with results of aggregate functions
 Plots representing data
 
-Script has configurable options:
+## Script has configurable options:
+
 	headers - is input files hase headers rows
 	input_delimiter - delimiter fo input files
 	input_directory - path to directory with input files
