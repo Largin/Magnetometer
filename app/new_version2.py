@@ -4,7 +4,7 @@ class Options:
         self.headers = True
         self.input_delimiter = ';'
         self.input_directory = '.\\data\\'
-        self.output_name = 'output\\output'
+        self.output_name = '.\\output\\output'
         self.averages = {
             'head_len': 650,  # baseline correction - number of points used to calculate baseline
             'tail_len': 10,
@@ -34,6 +34,8 @@ class Options:
                 'drop_corrected': True  # filter is applied to the corrected values
             }
         ]
+
+        self.plot_title = 'noise P=-200m #1 aver:1300pts'
 
 
 def fun_std(in_array):
@@ -81,7 +83,7 @@ class Chunk:
         self.tail_average = sum(self.values[-options.averages['tail_len']:]) / options.averages['tail_len']
         if options.averages['drop'] \
                 and math.fabs(self.head_average - self.tail_average) > options.averages['tail_head_diff']:
-            print(f'Chunk {self.number} marked dropped because of diff in average of head and average od tail')
+            print(f'Chunk {self.number} marked dropped because of diff in average of head and average of tail')
             self.dropped = True
 
     def compute(self):
@@ -220,7 +222,7 @@ class Data:
         ax2.grid(True, which='major')
         ax1.grid(True, which='minor', linestyle=':')
         ax2.grid(True, which='minor', linestyle=':')
-        plt.title('noise P=-200m #1 aver:1300pts')
+        plt.title(options.plot_title)
         fig1.savefig(filename + '_all.png')
         fig2.savefig(filename + '_all_corrected.png')
 
@@ -238,7 +240,7 @@ class Data:
         ax.yaxis.set_minor_locator(AutoMinorLocator())
         ax.grid(True, which='major')
         ax.grid(True, which='minor', linestyle=':')
-        plt.title('noise P=-200m #1 aver:1300pts')
+        plt.title(options.plot_title)
         fig.savefig(filename + '_average.png')
 
     def plot_functions(self, filename):
@@ -259,7 +261,7 @@ class Data:
         ax.yaxis.set_minor_locator(AutoMinorLocator())
         ax.grid(True, which='major')
         ax.grid(True, which='minor', linestyle=':')
-        plt.title('noise P=-200m #1 aver:1300pts')
+        plt.title(options.plot_title)
         fig.savefig(filename + '_functions_corrected.png')
 
     def plot_functions_nc(self, filename):
@@ -280,7 +282,7 @@ class Data:
         ax.yaxis.set_minor_locator(AutoMinorLocator())
         ax.grid(True, which='major')
         ax.grid(True, which='minor', linestyle=':')
-        plt.title('noise P=-200m #1 aver:1300pts not corrected!')
+        plt.title(options.plot_title + ' not corrected !!')
         fig.savefig(filename + '_functions.png')
 
         
