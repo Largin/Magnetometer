@@ -32,6 +32,12 @@ class Options:
                 'drop': False,  # applies filter to values which are not "corrected"
                                 # shifted by the initial offset determined by head_len
                 'drop_corrected': True  # filter is applied to the corrected values
+            },
+            {
+                'label': 'Randomness',
+                'callback': fun_rnd,
+                'drop': False,
+                'drop_corrected': False
             }
         ]
 
@@ -49,6 +55,11 @@ def fun_mean(in_array):
     res = numpy.mean(in_array)
     return res
 
+
+def fun_rnd(in_array):
+    import random
+    res = random.random()
+    return res
 
 class Chunk:
     def __init__(self):
@@ -298,20 +309,20 @@ def read_files():
 
     for file in file_list:
         print(f'Opening file: {file}')
-        f = open(file, newline='')
-        reader = csv.reader(f, delimiter=options.input_delimiter)
-        if options.headers:
-            next(reader)
+        with open(file, newline='') as f:
+            reader = csv.reader(f, delimiter=options.input_delimiter)
+            if options.headers:
+                next(reader)
 
-        for row in reader:
-            chunk_no = int(row[0])
-            timestamp = float(row[1])
-            value = float(row[2])
+            for row in reader:
+                chunk_no = int(row[0])
+                timestamp = float(row[1])
+                value = float(row[2])
 
-            if not chunk.add_row(chunk_no, value, timestamp):
-                data.add_chunk(chunk)
-                chunk = Chunk()
-                chunk.add_row(chunk_no, value, timestamp)
+                if not chunk.add_row(chunk_no, value, timestamp):
+                    data.add_chunk(chunk)
+                    chunk = Chunk()
+                    chunk.add_row(chunk_no, value, timestamp)
 
     data.add_chunk(chunk)
     return data
